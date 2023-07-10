@@ -1,0 +1,83 @@
+cabal-version: 3.0
+name: reports
+version:             0.1.0.0
+synopsis: Simple reports from SQL DB queries
+license: Apache-2.0
+license-files:
+  LICENSE
+author:              Jann Müller
+maintainer:          j-mueller@users.noreply.github.com
+build-type:          Simple
+
+common lang
+    default-language: Haskell2010
+    default-extensions: ExplicitForAll ScopedTypeVariables
+                        DeriveGeneric StandaloneDeriving DeriveLift
+                        GeneralizedNewtypeDeriving DeriveFunctor DeriveFoldable
+                        DeriveTraversable
+    other-extensions: DeriveAnyClass FlexibleContexts FlexibleInstances
+                      MultiParamTypeClasses TypeFamilies OverloadedStrings
+                      MonadComprehensions ConstrainedClassMethods TupleSections GADTs
+                      RankNTypes TemplateHaskell QuasiQuotes TypeApplications
+                      ExistentialQuantification
+    ghc-options: -Wall -Wnoncanonical-monad-instances
+                 -Wincomplete-uni-patterns -Wincomplete-record-updates
+                 -Wredundant-constraints -Widentities
+
+library
+  import: lang
+  hs-source-dirs: lib
+  exposed-modules:
+    Reports
+    Reports.Build
+    Reports.Cli
+    Reports.Core
+    Reports.SqlQuery
+    Reports.Visualisation
+    NiceHash
+    WithHash
+  build-depends:
+    base >=4.13 && <5.0,
+    shake,
+    text,
+    bytestring,
+    aeson >= 2.1.2.0,
+    lens,
+    lucid,
+    neat-interpolation,
+    mtl,
+    HsYAML,
+    HsYAML-aeson,
+    optparse-applicative,
+    fsnotify,
+    filepath,
+    directory,
+    serialise,
+    hashable,
+    binary,
+    deepseq,
+    containers,
+    unordered-containers,
+    dhall-yaml,
+    crypto-sodium,
+    memory,
+    hex-text,
+    sqlite-simple,
+    prettyprinter,
+    beam-core -any,
+    beam-postgres -any,
+    beam-sqlite -any,
+
+executable reports
+  import:           lang
+  main-is:          Main.hs
+  hs-source-dirs:   app
+  build-depends: base, reports
+  ghc-options:          -Wall
+                        -Wcompat
+                        -Wincomplete-record-updates
+                        -Wincomplete-uni-patterns
+                        -Wpartial-fields
+                        -Wredundant-constraints
+                        -Wunused-packages
+                        -O2

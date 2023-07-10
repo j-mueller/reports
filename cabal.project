@@ -1,0 +1,8 @@
+
+index-state: 
+    2023-07-01T00:00:00Z
+
+with-compiler: ghc-9.4.4
+
+packages:
+  ./src
